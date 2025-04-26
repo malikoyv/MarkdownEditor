@@ -161,3 +161,50 @@ class Identifier {
       return result;
     }
   }
+
+  // Test function to demonstrate CRDT operations
+  export function testCRDT() {
+    console.log('Testing CRDT implementation...');
+    
+    // Create two CRDT instances simulating different users
+    const user1 = new CRDT('user1');
+    const user2 = new CRDT('user2');
+    
+    // Initial content
+    let content = 'Hello World';
+    
+    // User 1 inserts '!' at position 11
+    const op1 = user1.insert(11, '!');
+    console.log('User 1 operation:', op1);
+    
+    // User 2 deletes 'World' (positions 6-10)
+    const op2 = user2.delete(6, 5);
+    console.log('User 2 operation:', op2);
+    
+    // Apply operations to both CRDTs
+    user1.applyOperation(op2);
+    user2.applyOperation(op1);
+    
+    // Merge operations
+    const merged1 = user1.merge(user2.operations);
+    const merged2 = user2.merge(user1.operations);
+    
+    // Apply to content
+    const result1 = user1.applyToContent(content);
+    const result2 = user2.applyToContent(content);
+    
+    console.log('Final content (user1):', result1);
+    console.log('Final content (user2):', result2);
+    
+    // Verify consistency
+    if (result1 === result2) {
+      console.log('✅ CRDT test successful: Both users have consistent content');
+    } else {
+      console.error('❌ CRDT test failed: Content is inconsistent');
+    }
+    
+    return {
+      user1: { content: result1, operations: Array.from(user1.operations.values()) },
+      user2: { content: result2, operations: Array.from(user2.operations.values()) }
+    };
+  }

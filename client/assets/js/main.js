@@ -3,7 +3,11 @@ import { initDocuments } from './modules/document.js'; // Changed from documents
 import { initEditor } from './modules/editor.js';
 import { initSync } from './modules/sync.js';
 import { initUI } from './modules/ui.js';
-import { initOffline } from './modules/offline.js';
+import { initOfflineDB } from './modules/offline.js';
+import { testCRDT } from './modules/crdt.js';
+
+// Expose test function globally
+window.testCRDT = testCRDT;
 
 document.addEventListener('DOMContentLoaded', () => {
   // Initialize app components
@@ -17,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
   
   initEditor();
   initSync();
-  initOffline();
+  initOfflineDB();
   
   // Check for stored language preference
   const currentLang = localStorage.getItem('language') || 'en';

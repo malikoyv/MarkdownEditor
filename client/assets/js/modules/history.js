@@ -67,25 +67,58 @@ export class History {
 // Create a singleton instance
 export const history = new History();
 
-// Keyboard shortcuts for undo/redo
-document.addEventListener('keydown', (event) => {
-  if (event.ctrlKey || event.metaKey) {
-    if (event.key === 'z') {
-      if (event.shiftKey) {
-        // Redo
-        const state = history.redo();
-        if (state) {
-          event.preventDefault();
-          document.dispatchEvent(new CustomEvent('history:redo', { detail: state }));
-        }
-      } else {
-        // Undo
-        const state = history.undo();
-        if (state) {
-          event.preventDefault();
-          document.dispatchEvent(new CustomEvent('history:undo', { detail: state }));
+export function recordChange(content) {
+  history.pushState({
+    content,
+    timestamp: Date.now()
+  });
+}
+
+export function initHistory() {
+  // Listen for document changes
+  document.addEventListener('editor:contentChange', (event) => {
+    recordChange(event.detail.content);
+  });
+
+  // Listen for undo/redo events
+  document.addEventListener('history:undo', (event) => {
+    const state = history.undo();
+    if (state) {
+      document.dispatchEvent(new CustomEvent('editor:contentUpdate', {
+        detail: { content: state.content }
+      }));
+    }
+  });
+
+  document.addEventListener('history:redo', (event) => {
+    const state = history.redo();
+    if (state) {
+      document.dispatchEvent(new CustomEvent('editor:contentUpdate', {
+        detail: { content: state.content }
+      }));
+    }
+  });
+
+  // Keyboard shortcuts for undo/redo
+  document.addEventListener('keydown', (event) => {
+    if (event.ctrlKey || event.metaKey) {
+      if (event.key === 'z') {
+        if (event.shiftKey) {
+          // Redo
+          const state = history.redo();
+          if (state) {
+            event.preventDefault();
+            document.dispatchEvent(new CustomEvent('history:redo', { detail: state }));
+          }
+        } else {
+          // Undo
+          const state = history.undo();
+          if (state) {
+            event.preventDefault();
+            document.dispatchEvent(new CustomEvent('history:undo', { detail: state }));
+          }
         }
       }
     }
-  }
-});
+  });
+}

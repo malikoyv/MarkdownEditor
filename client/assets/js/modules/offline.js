@@ -28,6 +28,9 @@ export async function initOfflineDB() {
   });
 }
 
+// Alias for backward compatibility
+export const initOffline = initOfflineDB;
+
 export async function bufferOperation(operation) {
   if (!db) {
     await initOfflineDB();

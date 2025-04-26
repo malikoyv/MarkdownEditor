@@ -2,7 +2,7 @@ import { initAuth } from './modules/auth.js';
 import { initDocuments } from './modules/document.js';
 import { initSync } from './modules/sync.js';
 import { initOfflineDB } from './modules/offline.js';
-import { history } from './modules/history.js';
+import { initHistory, recordChange } from './modules/history.js';
 import { initAccessibility, announceDocumentStatus } from './modules/accessibility.js';
 import { initEditor } from './modules/editor.js';
 
@@ -26,6 +26,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     
     // Initialize editor
     initEditor();
+    
+    // Initialize history
+    initHistory();
     
     // Announce initial status
     announceDocumentStatus(null);
