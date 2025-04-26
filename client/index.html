@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CollabMD - Collaborative Markdown Editor</title>
+    <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+    <div class="app">
+        <header class="header">
+            <div class="logo">CollabMD</div>
+            <div class="user-section">
+                <div id="loginContainer">
+                    <button id="loginBtn" class="btn btn-primary">Login</button>
+                </div>
+                <div id="userInfo" class="user-info hidden">
+                    <span class="user-name" id="userName"></span>
+                    <button id="logoutBtn" class="btn btn-outline btn-small">Logout</button>
+                </div>
+            </div>
+        </header>
+        
+        <div class="main-container">
+            <div class="sidebar">
+                <div class="document-controls">
+                    <button id="newDocumentBtn" class="btn btn-primary">New Document</button>
+                </div>
+                <div id="documentList" class="document-list">
+                    <!-- Document items will be loaded here -->
+                    <div class="empty-list">No documents yet</div>
+                </div>
+            </div>
+            
+            <div class="editor-container">
+                <div id="editorWelcome" class="editor-welcome">
+                    <h2 data-i18n="welcome">Welcome to CollabMD</h2>
+                    <p data-i18n="welcomeSubtitle">Select an existing document or create a new one to start collaborating.</p>
+                </div>
+                
+                <div id="editor" class="editor hidden">
+                    <div class="editor-header">
+                        <input type="text" id="documentTitle" class="document-title" data-i18n-placeholder="untitled" placeholder="Untitled Document">
+                        <div id="activeUsers" class="active-users"></div>
+                        <div class="editor-controls">
+                            <button id="saveBtn" class="btn btn-outline btn-small" data-i18n="save">Save</button>
+                            <button id="shareBtn" class="btn btn-outline btn-small" data-i18n="share">Share</button>
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <div class="editor-pane">
+                            <textarea id="markdownEditor" data-i18n-placeholder="startTyping" placeholder="Start typing your markdown here..."></textarea>
+                        </div>
+                        <div class="preview-pane">
+                            <div id="markdownPreview" class="markdown-preview"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="notifications" class="notifications"></div>
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div id="modalContent"></div>
+        </div>
+    </div>
+
+    <!-- JavaScript Files -->
+    <script type="module" src="./assets/js/modules/auth.js"></script>
+    <script type="module" src="./assets/js/modules/crdt.js"></script>
+    <script type="module" src="./assets/js/modules/document.js"></script>
+    <script type="module" src="./assets/js/modules/markdown.js"></script>
+    <script type="module" src="./assets/js/modules/history.js"></script>
+    <script type="module" src="./assets/js/modules/cursor.js"></script>
+    <script type="module" src="./assets/js/modules/offline.js"></script>
+    <script type="module" src="./assets/js/modules/sync.js"></script>
+    <script type="module" src="./assets/js/modules/ui.js"></script>
+    <script type="module" src="./assets/js/main.js"></script>
+</body>
+</html>

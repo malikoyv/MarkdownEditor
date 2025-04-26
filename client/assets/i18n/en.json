@@ -1,0 +1,21 @@
+{
+  "welcome": "Welcome to CollabMD",
+  "welcomeSubtitle": "Select an existing document or create a new one to start collaborating.",
+  "newDocument": "New Document",
+  "noDocuments": "No documents yet. Create one to get started!",
+  "untitled": "Untitled Document",
+  "save": "Save",
+  "share": "Share",
+  "login": "Login",
+  "logout": "Logout",
+  "documentSaved": "Document saved successfully",
+  "documentDeleted": "Document deleted",
+  "errorSaving": "Error saving document",
+  "documentNotFound": "Document not found",
+  "pleaseLogin": "Please login to create documents",
+  "linkCopied": "Link copied to clipboard",
+  "failedToCopy": "Failed to copy link",
+  "confirmDelete": "Are you sure you want to delete this document?",
+  "updated": "Updated",
+  "startTyping": "Start typing your markdown here..."
+}
